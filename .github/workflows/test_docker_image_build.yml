@@ -24,7 +24,7 @@ on:
           - 'ministryofjustice'
           - 'hmpps'
       additional_docker_tag:
-        description: Additional docker tag that can be used to specify stable tags
+        description: Additional docker tag that can be used to specify stable  tags 
         required: false
         default: ''
         type: string

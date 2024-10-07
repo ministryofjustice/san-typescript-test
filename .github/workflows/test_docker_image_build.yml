@@ -10,7 +10,7 @@ on:
       docker_registry:
         description: Docker registry
         required: true
-        default: 'ghcr.io'
+        default: 'quay.io'
         type: choice
         options:
           - 'ghcr.io'
@@ -18,7 +18,7 @@ on:
       registry_org:
         description: Docker registry organisation
         required: true
-        default: 'ministryofjustice'
+        default: 'hmpps'
         type: choice
         options:
           - 'ministryofjustice'

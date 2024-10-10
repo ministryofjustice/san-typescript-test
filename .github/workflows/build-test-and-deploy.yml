@@ -24,7 +24,7 @@ on:
           - 'ministryofjustice'
           - 'hmpps'
       additional_docker_tag:
-        description: Additional docker tag that can be used to specify stable  tags 
+        description: Additional docker tag that can be used to specify stable tags
         required: false
         default: ''
         type: string
@@ -38,20 +38,41 @@ on:
         required: true
         default: true
         type: boolean
+      channel_id:
+        description: Slack channel id
+        required: true
+        default: 'NO_SLACK'
+        type: string
 
 permissions:
   contents: read
   packages: write
-  
+
 jobs:
 
-  test_docker_build:
-    name: Build docker image from hmpps-github-actions
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/build-test-and-deploy.yml@feat/HEAT-344-share-app-version-across-jobs
+  # create_app_version:
+  #   name: Create app version
+  #   uses: ministryofjustice/hmpps-github-actions/.github/workflows/create_app_version.yml@feat/HEAT-344-create-deploy_env_workflow
+
+  # docker_build:
+  #   name: Build docker image from hmpps-github-actions
+  #   needs: [ create_app_version ]
+  #   uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@feat/HEAT-344-create-deploy_env_workflow
+  #   secrets: inherit
+  #   with:
+  #     docker_registry: ${{ inputs.docker_registry || 'ghcr.io' }}
+  #     registry_org: ${{ inputs.registry_org || 'ministryofjustice' }}
+  #     additional_docker_tag: ${{ inputs.additional_docker_tag }}
+  #     push: ${{ inputs.push || true }}
+  #     docker_multiplatform: ${{ inputs.docker_multiplatform || false }}
+  #     app_version: ${{ needs.create_app_version.outputs.version }}
+      
+  deploy_env:
+    name: Deploy 
+    # needs: [ docker_build ]
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@feat/HEAT-344-create-deploy_env_workflow
     secrets: inherit
     with:
-      docker_registry: ${{ inputs.docker_registry || 'quay.io' }}
-      registry_org: ${{ inputs.registry_org || 'hmpps' }}
-      additional_docker_tag: ${{ inputs.additional_docker_tag }}
-      push: ${{ inputs.push || true }}
-      docker_multiplatform: ${{ inputs.docker_multiplatform }}
+      environment: 'development'
+      channel_id: 'NO_SLACK'
+      app_version: 'latest'

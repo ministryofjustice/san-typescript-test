@@ -12,13 +12,15 @@ jobs:
   test_environment_secret1:
     runs-on: ubuntu-latest
     environment: test1
-    - name: Run tests
-      run: |
-        echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
+    steps:
+      - name: Run tests
+        run: |
+          echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
 
   test_environment_secret1:
     runs-on: ubuntu-latest
     environment: test2
-    - name: Run tests
-      run: |
-        echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
+    steps:
+      - name: Run tests
+        run: |
+          echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"

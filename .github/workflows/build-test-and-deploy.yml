@@ -54,7 +54,7 @@ jobs:
     name: Create app version
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/create_app_version.yml@feat/HEAT-344-create-deploy_env_workflow
 
-  test_docker_build:
+  docker_build:
     name: Build docker image from hmpps-github-actions
     needs: [ create_app_version ]
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@feat/HEAT-344-create-deploy_env_workflow

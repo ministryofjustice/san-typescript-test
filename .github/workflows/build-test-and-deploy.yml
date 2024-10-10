@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Run tests
         run: |
-          echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
+          echo "user2=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
 
   test_environment_secret2:
     runs-on: ubuntu-latest
@@ -23,4 +23,4 @@ jobs:
     steps:
       - name: Run tests
         run: |
-          echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
+          echo "user2=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"

@@ -17,7 +17,7 @@ jobs:
         run: |
           echo "user=${{ secret.user }}" | tee -a "$GITHUB_OUTPUT"
 
-  test_environment_secret1:
+  test_environment_secret2:
     runs-on: ubuntu-latest
     environment: test2
     steps:

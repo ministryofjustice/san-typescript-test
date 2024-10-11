@@ -74,4 +74,4 @@ jobs:
     secrets: inherit
     with:
       environment: 'dev'
-      app_version: ${{ needs.create_app_version.outputs.version }}
+      app_version: 'latest'

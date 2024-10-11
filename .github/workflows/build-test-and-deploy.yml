@@ -36,7 +36,7 @@ on:
       docker_multiplatform:
         description: docker multiplatform build or not
         required: true
-        default: true
+        default: false
         type: boolean
       channel_id:
         description: Slack channel id
@@ -74,4 +74,4 @@ jobs:
     secrets: inherit
     with:
       environment: 'dev'
-      app_version: 'latest'
+      app_version: ${{ needs.create_app_version.outputs.version }}

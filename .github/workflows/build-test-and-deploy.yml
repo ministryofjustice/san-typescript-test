@@ -73,6 +73,5 @@ jobs:
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@feat/HEAT-344-create-deploy_env_workflow
     secrets: inherit
     with:
-      environment: 'development'
-      channel_id: 'NO_SLACK'
+      environment: 'dev'
       app_version: 'latest'

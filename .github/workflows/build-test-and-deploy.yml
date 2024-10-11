@@ -69,7 +69,7 @@ jobs:
       
   deploy_env:
     name: Deploy 
-    # needs: [ docker_build ]
+    needs: [ docker_build ]
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@feat/HEAT-344-create-deploy_env_workflow
     secrets: inherit
     with:

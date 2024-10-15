@@ -58,9 +58,10 @@ jobs:
       - name: create_app_version
         id: create_app_version
         uses: ministryofjustice/hmpps-github-actions/.github/actions/create_app_version@move_create_app_version_in_action
-      - name: display variable 
+      - name: display version number 
+        id: version
         run: |
-          echo "${{ steps.create_app_version.outputs.output_version }}"
+          echo "version=${{ steps.create_app_version.outputs.output_version }}" >> "$GITHUB_OUTPUT"
           
   docker_build:
     name: Build docker image from hmpps-github-actions
@@ -73,7 +74,7 @@ jobs:
       additional_docker_tag: ${{ inputs.additional_docker_tag }}
       push: ${{ inputs.push || true }}
       docker_multiplatform: ${{ inputs.docker_multiplatform || false }}
-      app_version: ${{ needs.create_app_version.outputs.output_version }}
+      app_version: ${{ needs.create_app_version.outputs.version }}
       
   deploy_env:
     name: Deploy 
@@ -84,4 +85,4 @@ jobs:
     secrets: inherit
     with:
       environment: 'dev'
-      app_version: '${{ needs.create_app_version.outputs.output_version }}'
+      app_version: '${{ needs.create_app_version.outputs.version }}'

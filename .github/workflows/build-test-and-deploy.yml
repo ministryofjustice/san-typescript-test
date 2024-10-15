@@ -51,13 +51,17 @@ permissions:
 jobs:
 
   create_app_version:
-    name: Create app version
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/create_app_version.yml@feat/HEAT-344-create-deploy_env_workflow
+    outputs: 
+      - version: ${{ steps.create_app_version.outputs.version }}
+    steps:
+      - name: create_app_version
+        id: create_app_version
+        uses: ministryofjustice/hmpps-github-actions/.github/actions/create_app_version@move_create_app_version_in_action
 
   docker_build:
     name: Build docker image from hmpps-github-actions
     needs: [ create_app_version ]
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@feat/HEAT-344-create-deploy_env_workflow
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@main
     secrets: inherit
     with:
       docker_registry: ${{ inputs.docker_registry || 'ghcr.io' }}
@@ -72,7 +76,7 @@ jobs:
     needs: 
       - create_app_version
       - docker_build
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@feat/HEAT-344-create-deploy_env_workflow
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@main
     secrets: inherit
     with:
       environment: 'dev'

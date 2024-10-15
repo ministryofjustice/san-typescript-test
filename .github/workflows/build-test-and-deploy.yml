@@ -53,14 +53,14 @@ jobs:
   create_app_version:
     runs-on: ubuntu-latest
     outputs: 
-      version: ${{ steps.create_app_version.outputs.version }}
+      version: ${{ steps.create_app_version.outputs.output_version }}
     steps:
       - name: create_app_version
         id: create_app_version
         uses: ministryofjustice/hmpps-github-actions/.github/actions/create_app_version@move_create_app_version_in_action
       - name: display variable 
         run: |
-          echo "${{ steps.create_app_version.outputs.version }}"
+          echo "${{ steps.create_app_version.outputs.output_version }}"
           
   # docker_build:
   #   name: Build docker image from hmpps-github-actions

@@ -52,7 +52,7 @@ jobs:
 
   create_app_version:
     outputs: 
-      - version: ${{ steps.create_app_version.outputs.version }}
+      version: ${{ steps.create_app_version.outputs.version }}
     steps:
       - name: create_app_version
         id: create_app_version

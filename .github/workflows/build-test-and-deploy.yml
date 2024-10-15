@@ -62,26 +62,26 @@ jobs:
         run: |
           echo "${{ steps.create_app_version.outputs.output_version }}"
           
-  # docker_build:
-  #   name: Build docker image from hmpps-github-actions
-  #   needs: [ create_app_version ]
-  #   uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@main
-  #   secrets: inherit
-  #   with:
-  #     docker_registry: ${{ inputs.docker_registry || 'ghcr.io' }}
-  #     registry_org: ${{ inputs.registry_org || 'ministryofjustice' }}
-  #     additional_docker_tag: ${{ inputs.additional_docker_tag }}
-  #     push: ${{ inputs.push || true }}
-  #     docker_multiplatform: ${{ inputs.docker_multiplatform || false }}
-  #     app_version: ${{ needs.create_app_version.outputs.version }}
+  docker_build:
+    name: Build docker image from hmpps-github-actions
+    needs: [ create_app_version ]
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/docker_build.yml@main
+    secrets: inherit
+    with:
+      docker_registry: ${{ inputs.docker_registry || 'ghcr.io' }}
+      registry_org: ${{ inputs.registry_org || 'ministryofjustice' }}
+      additional_docker_tag: ${{ inputs.additional_docker_tag }}
+      push: ${{ inputs.push || true }}
+      docker_multiplatform: ${{ inputs.docker_multiplatform || false }}
+      app_version: ${{ needs.create_app_version.outputs.output_version }}
       
-  # deploy_env:
-  #   name: Deploy 
-  #   needs: 
-  #     - create_app_version
-  #     - docker_build
-  #   uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@main
-  #   secrets: inherit
-  #   with:
-  #     environment: 'dev'
-  #     app_version: '${{ needs.create_app_version.outputs.version }}'
+  deploy_env:
+    name: Deploy 
+    needs: 
+      - create_app_version
+      - docker_build
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/deploy_env.yml@main
+    secrets: inherit
+    with:
+      environment: 'dev'
+      app_version: '${{ needs.create_app_version.outputs.output_version }}'

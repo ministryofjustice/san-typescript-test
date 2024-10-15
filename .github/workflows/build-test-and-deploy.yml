@@ -51,6 +51,7 @@ permissions:
 jobs:
 
   create_app_version:
+    runs-on: ubuntu-latest
     outputs: 
       version: ${{ steps.create_app_version.outputs.version }}
     steps:
